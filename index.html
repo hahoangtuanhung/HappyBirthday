@@ -131,58 +131,9 @@
       </div>
     </div>
 	<!-- 1) Audio: autoplay + loop -->
-<audio id="bgm" preload="auto" loop autoplay playsinline>
+<audio autoplay loop>
   <source src="happy-birthday.mp3" type="audio/mpeg">
 </audio>
-
-<!-- 2) Nút điều khiển nổi -->
-<button id="bgm-toggle" aria-label="Play music"
-        style="position:fixed; right:16px; bottom:16px; padding:10px 14px; border-radius:999px; border:none; box-shadow:0 6px 20px rgba(0,0,0,.15); font-weight:600; cursor:pointer;">
-  ⏸ Pause
-</button>
-
-<script>
-  const audio = document.getElementById('bgm');
-  const btn   = document.getElementById('bgm-toggle');
-
-  audio.volume = 0.35;
-
-  // Phát ngay khi tải trang
-  window.addEventListener("load", () => {
-    audio.play().catch(err => {
-      console.warn("Trình duyệt chặn autoplay:", err);
-    });
-  });
-
-  // Hàm cập nhật UI
-  function updateUI() {
-    if (audio.paused) {
-      btn.textContent = '▶️ Play';
-      btn.setAttribute('aria-label','Play music');
-    } else {
-      btn.textContent = '⏸ Pause';
-      btn.setAttribute('aria-label','Pause music');
-    }
-  }
-
-  // Nút toggle Play/Pause
-  btn.addEventListener('click', async () => {
-    if (audio.paused) {
-      await audio.play().catch(()=>{});
-    } else {
-      audio.pause();
-    }
-    updateUI();
-  });
-
-  // iOS/Safari: phát lại khi quay lại foreground
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && !audio.paused) {
-      audio.play().catch(()=>{});
-    }
-  });
-</script>
-
   </body>
   <script>
     document.addEventListener("mousemove", function (e) {
